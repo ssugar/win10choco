@@ -7,11 +7,11 @@ VAGRANTFILE_API_VERSION = "2"
 $prereboot = <<SCRIPT
 tzutil /s "SE Asia Standard Time"
 (iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1')))>$null 2>&1
-choco install googlechrome
-choco install flashplayerplugin
-choco install javaruntime
-#choco install office365proplus
-choco install pswindowsupdate
+#choco install googlechrome -y
+#choco install flashplayerplugin -y
+#choco install javaruntime -y
+#choco install office365proplus -y
+choco install pswindowsupdate -y
 powercfg -change -standby-timeout-ac 0
 powercfg -change -disk-timeout-ac 0
 powercfg -change -hibernate-timeout-ac 0
@@ -53,7 +53,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
    config.vm.synced_folder ".", "/vagrant", type: "smb", disabled: false, smb_host: "10.10.10.66", create: true
 
    #run the pre-reboot script
-   #config.vm.provision "shell", inline: $prereboot
+   config.vm.provision "shell", inline: $prereboot
 
    #reboot
    #config.vm.provision :reload
